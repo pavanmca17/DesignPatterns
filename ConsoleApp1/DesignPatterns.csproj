@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{F09C582D-1D70-4831-9E50-CBF0525BDE43}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>ConsoleApp1</RootNamespace>
+    <AssemblyName>ConsoleApp1</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DesignPatterns\Adapter\ExternalDataService.cs" />
+    <Compile Include="DesignPatterns\Adapter\IGetDataAdapter.cs" />
+    <Compile Include="DesignPatterns\Adapter\JSONAdapter\JsonAdapter.cs" />
+    <Compile Include="DesignPatterns\Adapter\SampleDTO.cs" />
+    <Compile Include="DesignPatterns\Adapter\XMLAdapter\XmlAdapter.cs" />
+    <Compile Include="DesignPatterns\Builder\Address.cs" />
+    <Compile Include="DesignPatterns\Builder\PersionBuilder.cs" />
+    <Compile Include="DesignPatterns\Builder\Person.cs" />
+    <Compile Include="Concepts\Abstract-Class\Factory\LoggerFactory.cs" />
+    <Compile Include="Concepts\Abstract-Class\Impl\FileLogger.cs" />
+    <Compile Include="Concepts\Abstract-Class\Impl\XmlLogger.cs" />
+    <Compile Include="Concepts\Abstract-Class\Logger.cs" />
+    <Compile Include="Concepts\Abstract-Class\Model\Author.cs" />
+    <Compile Include="Concepts\Abstract-Class\LoggerType.cs" />
+    <Compile Include="DesignPatterns\Decorator\ConsoleLogger.cs" />
+    <Compile Include="DesignPatterns\Decorator\IProductService.cs" />
+    <Compile Include="DesignPatterns\Decorator\Logger\ILogger.cs" />
+    <Compile Include="DesignPatterns\Decorator\Product.cs" />
+    <Compile Include="DesignPatterns\Decorator\ProductService.cs" />
+    <Compile Include="DesignPatterns\Decorator\ProductServiceDecorator.cs" />
+    <Compile Include="RepositoryPattern\Models\Result.cs" />
+    <Compile Include="PostRepositorySample\Models\Post.cs" />
+    <Compile Include="PostRepositorySample\Repository\Contracts\IDataRepository.cs" />
+    <Compile Include="PostRepositorySample\Repository\PostRepository.cs" />
+    <Compile Include="PostRepositorySample\Models\Result.cs" />
+    <Compile Include="LINQ\LinqSample.cs" />
+    <Compile Include="LINQ\Pet.cs" />
+    <Compile Include="LINQ\TestData.cs" />
+    <Compile Include="Models\Person.cs" />
+    <Compile Include="Concepts\Generics\Interfaces\IDisplayData.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Concepts\Generics\DisplayPersonData.cs" />
+    <Compile Include="RepositoryPattern\Models\Employee.cs" />
+    <Compile Include="RepositoryPattern\Repository\Contracts\IGenericRepository.cs" />
+    <Compile Include="RepositoryPattern\Repository\EmployeeRepository.cs" />
+    <Compile Include="DesignPatterns\Strategy\NullStrategy.cs" />
+    <Compile Include="DesignPatterns\Strategy\SilverMemberPriceStrategy.cs" />
+    <Compile Include="DesignPatterns\Strategy\GoldMemberPriceStrategy.cs" />
+    <Compile Include="DesignPatterns\Strategy\IPricestrategy.cs" />
+    <Compile Include="DesignPatterns\Strategy\Models\Discount.cs" />
+    <Compile Include="DesignPatterns\Strategy\Models\GoldMemeberDiscount.cs" />
+    <Compile Include="DesignPatterns\Strategy\Models\SilverMemeberDiscount.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="CloudPatterns\Circuit-Breaker\" />
+    <Folder Include="DesignPatterns\COR\" />
+    <Folder Include="Reflections\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
