@@ -1,9 +1,9 @@
-﻿
+
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28010.2041
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesignPatterns", "ConsoleApp1\DesignPatterns.csproj", "{F09C582D-1D70-4831-9E50-CBF0525BDE43}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DesignPatterns", "ConsoleApp1\DesignPatterns.csproj", "{F09C582D-1D70-4831-9E50-CBF0525BDE43}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\UnitTests.csproj", "{E00EA226-DBC5-43AE-8FA6-6C841D51F264}"
 EndProject
