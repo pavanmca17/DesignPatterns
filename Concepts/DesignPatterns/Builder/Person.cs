@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DesignPatterns.Builder
 {
@@ -13,14 +9,10 @@ namespace DesignPatterns.Builder
         {
             Address = new Address();
         }
-        public String FirstName { get; set; }
-
-        public String LastName { get; set; }
-
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
         public int Age { get; set; }
-
-        public String Sex { get; set; }
-
+        public string Sex { get; set; }
         public Address Address { get; set; }
 
 

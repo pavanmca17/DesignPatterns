@@ -12,4 +12,13 @@ namespace DesignPatterns.Concepts
         Xml,
         DataBase
     }
+
+    public enum PriceStrategyType
+    {
+        Null,
+        SilverMember,
+        GoldMember
+    }
+
+    
 }

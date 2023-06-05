@@ -1,10 +1,10 @@
 ﻿using DesignPatterns.Strategy.Models;
 using System.Threading.Tasks;
 
-namespace DesignPatterns.DesignPatterns.Strategy.ServiceContract
+namespace DesignPatterns.DesignPatterns.Strategy
 {
-    public interface IPricestrategy
+    public interface IPriceStrategy
     {
-        Task<Discount> GetDiscount();
+        public Task<Discount> GetDiscount();
     }
 }

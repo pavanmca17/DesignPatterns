@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DesignPatterns.Concepts
+namespace DesignPatterns.Concepts.Models
 {
     public class Author
     {

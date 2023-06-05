@@ -1,11 +1,11 @@
-﻿using DesignPatterns;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DesignPatterns.DesignPatterns.Decorator.Model;
 
-namespace DesignPatterns
+namespace DesignPatterns.DesignPatterns.Decorator.ServiceContracts
 {
     interface IProductService
     {

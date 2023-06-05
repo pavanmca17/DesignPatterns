@@ -1,8 +1,9 @@
 ﻿
+using DesignPatterns.Adapter.Model;
 using System.Collections.Generic;
 
 
-namespace DesignPatterns.Adapter.StubExternalDataSource
+namespace DesignPatterns.Adapter
 {
     public class ExternalDataService
     {

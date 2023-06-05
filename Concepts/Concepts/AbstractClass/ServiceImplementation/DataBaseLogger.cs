@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
+using DesignPatterns.Concepts.AbstractClass;
+using DesignPatterns.Concepts.Models;
 
-namespace DesignPatterns.Concepts.Factory
+namespace DesignPatterns.Concepts
 {
     public class DataBaseLogger : Logger<Author>
     {

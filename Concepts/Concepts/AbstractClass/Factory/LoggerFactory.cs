@@ -1,6 +1,9 @@
 ﻿
 
-namespace DesignPatterns.Concepts.Factory
+using DesignPatterns.Concepts.AbstractClass;
+using DesignPatterns.Concepts.Models;
+
+namespace DesignPatterns.Concepts
 {
     public static class LoggerFactory
     {

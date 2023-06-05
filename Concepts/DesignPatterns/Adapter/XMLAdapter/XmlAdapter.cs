@@ -1,11 +1,9 @@
-﻿using DesignPatterns.Adapter.Interface;
-using DesignPatterns.Adapter.StubExternalDataSource;
-using DesignPatterns.DesignPatterns.Adapter.StubExternalDataSource;
-using System.Collections.Generic;
-using System.IO;
+﻿using System.IO;
 using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Serialization;
+using System.Collections.Generic;
+using DesignPatterns.Adapter.Model;
 
 namespace DesignPatterns.Adapter
 {
@@ -15,12 +13,12 @@ namespace DesignPatterns.Adapter
         {
             string xml = string.Empty;
             ExternalDataService dataservice = new ExternalDataService();
-            List<ExternalData> sampleDtos = dataservice.GetData();            
+            List<ExternalData> externalData = dataservice.GetData();            
             XmlDocument xmlDoc = new XmlDocument();
-            XmlSerializer xmlSerializer = new XmlSerializer(sampleDtos.GetType());
+            XmlSerializer xmlSerializer = new XmlSerializer(externalData.GetType());
             using (MemoryStream xmlStream = new MemoryStream())
             {
-                xmlSerializer.Serialize(xmlStream, sampleDtos);
+                xmlSerializer.Serialize(xmlStream, externalData);
                 xmlStream.Position = 0;
                 xmlDoc.Load(xmlStream);
                 xml =  xmlDoc.InnerXml;

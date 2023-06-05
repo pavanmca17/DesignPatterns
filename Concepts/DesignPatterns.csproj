@@ -13,11 +13,11 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Remove="DesignPatterns\COR\**" />
+    <Compile Remove="Reflections\**" />
     <EmbeddedResource Remove="DesignPatterns\COR\**" />
+    <EmbeddedResource Remove="Reflections\**" />
     <None Remove="DesignPatterns\COR\**" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Reflections\" />
+    <None Remove="Reflections\**" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />

@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DesignPatterns.Strategy.Models
 {
     public class Discount
     {
-        public String DiscountApprovedBy { get; set; }
+        public string DiscountApprovedBy { get; set; }
 
         public DateTime DiscountAppliedOn { get; set; }
 

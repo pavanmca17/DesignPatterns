@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DesignPatterns.Decorator
+namespace DesignPatterns.DesignPatterns.Decorator.Logger
 {
     class ConsoleLogger : ILogger
     {
-        public void Log(String Message)
+        public void Log(string Message)
         {
             Console.WriteLine(Message);
         }

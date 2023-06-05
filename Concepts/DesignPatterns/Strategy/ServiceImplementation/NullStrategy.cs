@@ -1,14 +1,10 @@
-﻿using DesignPatterns.DesignPatterns.Strategy.ServiceContract;
-using DesignPatterns.Strategy.Models;
+﻿using DesignPatterns.Strategy.Models;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
-namespace DesignPatterns.DesignPatterns.Strategy.ServiceImplementation
+namespace DesignPatterns.DesignPatterns.Strategy
 {
-    public class NullPriceStrategy : IPricestrategy
+    public class NullPriceStrategy : IPriceStrategy
     {
         public async Task<Discount> GetDiscount()
         {

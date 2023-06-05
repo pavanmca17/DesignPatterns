@@ -3,130 +3,125 @@ using GenericRepository;
 using GenericRepositorySample;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using DesignPatterns.Concepts;
-using DesignPatterns.Strategy;
 using DesignPatterns.Strategy.Models;
-using DesignPatterns;
 using DesignPatterns.Builder;
 using DesignPatterns.Adapter;
-using DesignPatterns.DesignPatterns.Strategy.ServiceContract;
+using DesignPatterns.Concepts.AbstractClass;
+using DesignPatterns.DesignPatterns.Strategy;
+using DesignPatterns.DesignPatterns.EntityFactory;
+using DesignPatterns.DesignPatterns;
+using DesignPatterns.Concepts.Models;
+using DesignPatterns.Concepts.Generics;
 
 namespace DesignPatterns
 {
     class Program
     {
-        public static async  Task Main(string[] args)
+        public static async Task Main(string[] args)
         {
-            // TasksWithActionsExample().GetAwaiter().GetResult();
-             await DisplayPersonData();
-            // CreateLoggerTask().GetAwaiter().GetResult();
-            // PostRepositoryTask().GetAwaiter().GetResult();
-            // GetEmployeeDataTask().GetAwaiter().GetResult();
-            //Test();
-            Test().GetAwaiter().GetResult();
-            BuilderTest();
-            AdapterTest();
+           
             Console.ReadLine();
 
-
         }
-        private static async Task GetEmployeeDataTask()
+        private static async Task GenericRepository()
         {
             EmployeeRepository employeeRepository = new EmployeeRepository();
-            List<Employee> employees = await employeeRepository.GetData();
-
+            List<Employee> employees = await employeeRepository.GetData();            
         }
 
-        private static async Task StrategypatternExample()
+        static async Task StrategyPatternExample()
         {
-            float costPrice = 1200;
-            float sellingPrice;
-            IPricestrategy pricestrategy;
-            Discount discount;
-            pricestrategy = new NullPriceStrategy();
-            discount = await pricestrategy.GetDiscount();
-            sellingPrice = costPrice - discount.DiscountAmount;
-            Console.WriteLine($"Cost Price, {costPrice} - Discount, {discount.DiscountAmount} - Selling Price {sellingPrice}");
-            pricestrategy = new GoldMemberPriceStrategy();
-            discount = await pricestrategy.GetDiscount();
-            sellingPrice = costPrice - discount.DiscountAmount;
-            Console.WriteLine($"Cost Price, {costPrice} - Discount, {discount.DiscountAmount} - Selling Price {sellingPrice}");
-            pricestrategy = new SilverMemberPriceStrategy();
-            discount = await pricestrategy.GetDiscount();
-            sellingPrice = costPrice - discount.DiscountAmount;
-            Console.WriteLine($"Cost Price, {costPrice} - Discount, {discount.DiscountAmount} - Selling Price {sellingPrice}");
-            
+            const float costPrice = 1200;
+            float sellingPrice = 0;
+            Discount _discount = null;
 
+            IPriceStrategy _priceStrategy = null;     
+            IEntityFactory _entityFactory = new EntityFactor();
 
+            _priceStrategy = await _entityFactory.GeneratePriceStrategyEntity(PriceStrategyType.Null);
+            _discount = await _priceStrategy.GetDiscount();
+            sellingPrice = costPrice - _discount.DiscountAmount;
+            Console.WriteLine($"Cost Price, {costPrice} - Discount, {_discount.DiscountAmount} - Selling Price {sellingPrice}");
+
+            _priceStrategy = await _entityFactory.GeneratePriceStrategyEntity(PriceStrategyType.SilverMember);
+            _discount = await _priceStrategy.GetDiscount();
+            sellingPrice = costPrice - _discount.DiscountAmount;
+            Console.WriteLine($"Cost Price, {costPrice} - Discount, {_discount.DiscountAmount} - Selling Price {sellingPrice}");
+
+            _priceStrategy = await _entityFactory.GeneratePriceStrategyEntity(PriceStrategyType.GoldMember);
+            _discount = await _priceStrategy.GetDiscount();
+            sellingPrice = costPrice - _discount.DiscountAmount;
+            Console.WriteLine($"Cost Price, {costPrice} - Discount, {_discount.DiscountAmount} - Selling Price {sellingPrice}");
         }
 
-        private static async Task CreateLoggerTask()
+        private static async Task CreateLoggerTaskUsingFactorPattern()
         {
             Logger<Author> logger = LoggerFactory.CreateLogger(LoggerType.File);
-            Func<Author> createAuthor = () => { return new Author() { ID = 1, Name = "Pavan Kumar Pannala" }; };
-            await logger.Log(createAuthor());
             logger.Log();
+            Func<Author> createAuthor = () => { return new Author() { ID = 1, Name = "First-Name" }; };          
+            await logger.Log(createAuthor());
+           
             logger = LoggerFactory.CreateLogger(LoggerType.Xml);
-            await logger.Log(createAuthor());
             logger.Log();
+            await logger.Log(createAuthor());       
 
         }
-
-        private static async Task PostRepositoryTask()
+        private static async Task GenericRepositoryUsage()
         {
-            PostRepository postRepository = new PostRepository();
-            Task<Post> postTask = postRepository.GetData();
-            Post post = await postTask;
-            Task<Result<int>> resultTask = postRepository.SaveData(post);
-            Result<int> result = await resultTask;
+            PostsRepository PostsRepository = new PostsRepository();
+            Posts Posts = await PostsRepository.GetData();           
+            Result<int> result = await PostsRepository.SaveData(Posts);
+            Console.WriteLine($"Return Value{result}");
         }
 
         private static async Task TasksWithActionsExample()
         {
            // Action Delegates
-            Action<int> getint = (i) => { Console.WriteLine("Action method Displaying Integer" + i); };
+            Action<int> getint = (i) => { Console.WriteLine($"Action method Displaying Integer {i}"); };
 
-            Action<String> getstring = (s) => { Console.WriteLine("Action method Displaying String" + s); };
+            Action<string> getstring = (str) => { Console.WriteLine($"Action method Displaying String {str}"); };
 
-            Action<Person> displayPerson = (p) =>
+            Action<Person> displayPerson = (person) =>
             {
-                p.GetPersonDetails();
+                person.GetPersonDetails();
             };
 
 
             //Use a Function to Create and Return a Object of Person Type
-            Func<int, string, string, Person> createpersonobject = (_Age, _FirstName, _LastName) => { return new Person() { Age = _Age, FirstName = _FirstName, LastName = _LastName }; };
+            Func<int, string, string, Person> createpersonobject = (_Age, _FirstName, _LastName) => {
+                   return new Person() { Age = _Age, FirstName = _FirstName, LastName = _LastName };
+            };
 
            // Passing Actions to Tasks
             await Task.Factory.StartNew(() => { getint(10); });
 
-            await Task.Factory.StartNew(() => { getstring("Hello Test"); }).ContinueWith(t => { Console.WriteLine("Starting After Completion of Hello Test"); });
+            await Task.Factory.StartNew(() => {  getstring("Hello Test");
+                                              }).ContinueWith(t => { 
+                                                  Console.WriteLine("Starting After Completion of Hello Test");
+                                                 });
 
-            await Task.Factory.StartNew(() => { displayPerson(createpersonobject(35, "Pavan", "Kumar")); });
+            await Task.Factory.StartNew(() => { displayPerson(createpersonobject(35, "FirstName", "LastName")); });
 
         }
 
         private static async Task<bool> TasksWithFunctionsExample()
         {
            // Function Delegates
-            Func<Person, String> getName = (p) => { return p.GetName(); };
+            Func<Person, string> getName = (person) => { return person.GetName(); };
 
-            Func<String, bool> checkfilepath = (filepath) =>
-            {
-                return System.IO.File.Exists(filepath);
-
-            };
+            Func<string, bool> checkfilepath = System.IO.File.Exists;
 
           //  Task < String > using Functions
-            Task<String> dataTask = Task.Factory.StartNew<String>(() => { return "Pavan Kumar Pannala"; });
-            String data = await dataTask;
+            Task<string> dataTask = Task.Factory.StartNew(() => { return "data"; });
+            var data = await dataTask;
             Console.WriteLine(data);
 
            // Use a Function to Create and Return a Object of Person Type
-            Func<int, string, string, Person> createpersonobject = (_Age, _FirstName, _LastName) => { return new Person() { Age = _Age, FirstName = _FirstName, LastName = _LastName }; };
+            Func<int, string, string, Person> createperson = (_Age, _FirstName, _LastName) => { 
+                 return new Person() { Age = _Age, FirstName = _FirstName, LastName = _LastName }; 
+            };
 
             Func<Person> getperson = () => { return new Person() {  }; };
 
@@ -134,24 +129,20 @@ namespace DesignPatterns
 
             GetAllSquares(new List<int>() { 1, 2, 3 }, calcsquare);
 
-            Task<String> nameTask = Task.Factory.StartNew<String>(() => getName(createpersonobject(35, "Pavan", "Kumar")));
-
-            String name = await nameTask;
-
+            Task<string> nameTask = Task.Factory.StartNew(() => getName(createperson(35, "FirstName", "LastName")));
+            var name = await nameTask;
             Console.WriteLine(name);
 
-            var Task1 = new Task(() => { Console.WriteLine("StartTasksAfterCreation"); });
-            Task1.Start();
+            var task1 = new Task(() => { Console.WriteLine("StartTasksAfterCreation"); });
+            task1.Start();
 
             Task<bool> booltask1 = Task.Factory.StartNew(() => checkfilepath("D://Testfile1.txt"));
 
             Task<bool> booltask2 = Task.Factory.StartNew(() => checkfilepath("D://Testfile2.txt"));
 
-            Task<bool> completedTask = await Task.WhenAny(booltask1, booltask2);
+            Task<bool> completedTask = await Task.WhenAny(booltask1, booltask2);           
 
-            bool retvalue = await completedTask;
-
-            return retvalue;
+            return await completedTask; ;
 
         }
 
@@ -173,7 +164,7 @@ namespace DesignPatterns
 
         private static void BuilderTest()
         {
-            DesignPatterns.Builder.Person person = new PersonBuilder().Create()
+            Person person = new PersonBuilder().Create()
                                                     .FirstName("Pavan Kumar")
                                                     .LastName("Pannala")
                                                     .Age(35)

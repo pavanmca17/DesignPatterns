@@ -6,7 +6,7 @@ namespace GenericRepository
 {
     interface IGenericRepository<T> where T : class, new()
     {
-        Task<Result> SaveData();
+        void SaveData();
         Task<List<T>> GetData();
     }
 }
