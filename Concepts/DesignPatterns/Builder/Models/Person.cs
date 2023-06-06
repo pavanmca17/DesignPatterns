@@ -1,19 +1,16 @@
-﻿using System;
-
-namespace DesignPatterns.Builder
+﻿namespace DesignPatterns.Builder.Models
 {
-    
-    public class Person
+    public class PersonDTO
     {
-        public Person()
+        public PersonDTO()
         {
-            Address = new Address();
+            Address = new AddressDTO();
         }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public int Age { get; set; }
         public string Sex { get; set; }
-        public Address Address { get; set; }
+        public AddressDTO Address { get; set; }
 
 
     }

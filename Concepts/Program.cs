@@ -1,19 +1,18 @@
-﻿
+﻿using System;
 using GenericRepository;
-using GenericRepositorySample;
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using DesignPatterns.Concepts;
-using DesignPatterns.Strategy.Models;
 using DesignPatterns.Builder;
 using DesignPatterns.Adapter;
 using DesignPatterns.Concepts.AbstractClass;
 using DesignPatterns.DesignPatterns.Strategy;
 using DesignPatterns.DesignPatterns.EntityFactory;
-using DesignPatterns.DesignPatterns;
-using DesignPatterns.Concepts.Models;
 using DesignPatterns.Concepts.Generics;
+using DesignPatterns.Builder.Models;
+using DesignPatterns.Strategy.Models;
+using DesignPatterns.Concepts.Models;
+using GenericRepository.Models;
 
 namespace DesignPatterns
 {
@@ -21,14 +20,18 @@ namespace DesignPatterns
     {
         public static async Task Main(string[] args)
         {
-           
+            await GenericRepository();
+            await StrategyPatternExample();
+            await CreateLoggerTaskUsingFactorPattern();
+            await GenericRepositoryUsage();
+            await ActionDelegateUsage();
             Console.ReadLine();
-
         }
         private static async Task GenericRepository()
         {
             EmployeeRepository employeeRepository = new EmployeeRepository();
-            List<Employee> employees = await employeeRepository.GetData();            
+            List<Employee> employees = await employeeRepository.GetData();  
+            
         }
 
         static async Task StrategyPatternExample()
@@ -76,7 +79,7 @@ namespace DesignPatterns
             Console.WriteLine($"Return Value{result}");
         }
 
-        private static async Task TasksWithActionsExample()
+        private static async Task ActionDelegateUsage()
         {
            // Action Delegates
             Action<int> getint = (i) => { Console.WriteLine($"Action method Displaying Integer {i}"); };
@@ -87,7 +90,6 @@ namespace DesignPatterns
             {
                 person.GetPersonDetails();
             };
-
 
             //Use a Function to Create and Return a Object of Person Type
             Func<int, string, string, Person> createpersonobject = (_Age, _FirstName, _LastName) => {
@@ -106,7 +108,7 @@ namespace DesignPatterns
 
         }
 
-        private static async Task<bool> TasksWithFunctionsExample()
+        private static async Task<bool> FunctionDelegateExample()
         {
            // Function Delegates
             Func<Person, string> getName = (person) => { return person.GetName(); };
@@ -142,7 +144,7 @@ namespace DesignPatterns
 
             Task<bool> completedTask = await Task.WhenAny(booltask1, booltask2);           
 
-            return await completedTask; ;
+            return await completedTask; 
 
         }
 
@@ -164,23 +166,25 @@ namespace DesignPatterns
 
         private static void BuilderTest()
         {
-            Person person = new PersonBuilder().Create()
-                                                    .FirstName("Pavan Kumar")
-                                                    .LastName("Pannala")
-                                                    .Age(35)
-                                                    .StreetAddress("Moti Nagar")
-                                                    .City("Hyderabad")
+            PersonDTO person = new PersonBuilder().Create()
+                                                    .FirstName("FirstName")
+                                                    .LastName("LastName")
+                                                    .Age(40)
+                                                    .StreetAddress("StreetAddress")                                                 
                                                     .Build();
-
+            Console.WriteLine(person.ToString());
         }
 
-        private static void AdapterTest()
+        private static async Task AdapterPatternDemo()
         {
-            String data = string.Empty;
-            IGetDataAdapter getDataAdapter;
-            getDataAdapter = new JsonAdapter();
-            data = getDataAdapter.GetData();
-
+            IGetData getData = null;
+            EntityFactor entityFactor = new EntityFactor();            
+            getData = await entityFactor.GenerateFormatAdapter(DataFormatType.JSON);
+            var jsonData = await getData.GetData();
+            Console.WriteLine($"{jsonData}");
+            getData = await entityFactor.GenerateFormatAdapter(DataFormatType.XML);
+            var xmldata = await getData.GetData();
+            Console.WriteLine($"{xmldata}");
         }
     }
 }

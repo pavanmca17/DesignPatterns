@@ -1,49 +1,38 @@
 ﻿using System;
+using DesignPatterns.Builder.Models;
 
 namespace DesignPatterns.Builder
 {
     public class PersonBuilder
     {
-        private Person person;
-
+        private PersonDTO person;
         public PersonBuilder Create()
         {
-            person = new Person();
+            person = new PersonDTO();
             return this;
-
         }
-
-        public PersonBuilder FirstName(String firstName)
+        public PersonBuilder FirstName(string firstName)
         {
             person.FirstName = firstName;
             return this;
         }
-
-        public PersonBuilder LastName(String lastName)
+        public PersonBuilder LastName(string lastName)
         {
             person.LastName = lastName;
             return this;
         }
-
         public PersonBuilder Age(int age)
         {
             person.Age = age;
             return this;
-        }
+        }     
 
-        public PersonBuilder City(String City)
-        {
-            person.Address.City = City;
-            return this;
-        }
-
-        public PersonBuilder StreetAddress(String StreetAddress)
+        public PersonBuilder StreetAddress(string StreetAddress)
         {
             person.Address.StreetAddress = StreetAddress;
             return this;
         }
-
-        public Person Build()
+        public PersonDTO Build()
         {
             return person;
         }

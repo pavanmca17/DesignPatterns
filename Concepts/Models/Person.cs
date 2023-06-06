@@ -1,4 +1,4 @@
-﻿using System;
+﻿
 namespace DesignPatterns
 {
     public class Person

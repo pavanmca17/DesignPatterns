@@ -1,9 +1,9 @@
-﻿using GenericRepositorySample;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using GenericRepository.Models;
 
-namespace GenericRepositorySample
+namespace GenericRepository
 {
     public class PostsRepository : IDataRepository<Posts,int>
     {
@@ -13,7 +13,7 @@ namespace GenericRepositorySample
         {
             await Task.Delay(10000);
             Func<Posts> createPosts = () => { return new Posts() {ID=1,Name="My Posts",Desc="My Desc",UrlLink="https://google.com" }; };
-            return await Task.FromResult<Posts>(createPosts());
+            return await Task.FromResult(createPosts());
         }
 
         public async Task<Result<int>> SaveData(Posts Posts)
@@ -21,7 +21,7 @@ namespace GenericRepositorySample
             await Task.Delay(1000);
             Postss.Add(Posts);
             Func<Result<int>> createResult = () => { return new Result<int>() { Success = true, Value = 10 }; };
-            return await Task.FromResult<Result<int>>(createResult());
+            return await Task.FromResult(createResult());
 
 
         }

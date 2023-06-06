@@ -1,14 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace DesignPatterns.LINQ
 {
     public class LinqSample
     {
-        TestData testData;
+        private TestData testData;
 
         public LinqSample()
         {
@@ -18,22 +16,22 @@ namespace DesignPatterns.LINQ
 
         public async Task<Person> GetPersonByAgeFirstOrDefault(int age)
         {
-            return await Task.FromResult<Person>(testData.persons.Where(p => p.Age == age).FirstOrDefault());
+            return await Task.FromResult(testData.persons.Where(p => p.Age == age).FirstOrDefault());
         }
 
         public async Task<Person> GetPersonByAgeFirst(int age)
         {
-            return await Task.FromResult<Person>(testData.persons.Where(p => p.Age == age).First());
+            return await Task.FromResult(testData.persons.Where(p => p.Age == age).First());
         }
 
         public async Task<List<Person>> GetPersonByAgeRange(int age)
         {
-            return await Task.FromResult<List<Person>>(testData.persons.Where(p => p.Age >= age && p.Age <= age).ToList());
+            return await Task.FromResult(testData.persons.Where(p => p.Age >= age && p.Age <= age).ToList());
         }
 
-        public async Task<String> GetPersonByAge(int age)
+        public async Task<string> GetPersonByAge(int age)
         {
-            return await Task.FromResult<String>(testData.persons.Where(p => p.Age == age).Select(p => p.FirstName).First());
+            return await Task.FromResult(testData.persons.Where(p => p.Age == age).Select(p => p.FirstName).First());
         }
 
         private void AllClause()

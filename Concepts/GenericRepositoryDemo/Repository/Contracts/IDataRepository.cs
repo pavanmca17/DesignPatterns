@@ -1,6 +1,7 @@
-﻿using System.Threading.Tasks;
+﻿using GenericRepository.Models;
+using System.Threading.Tasks;
 
-namespace GenericRepositorySample
+namespace GenericRepository
 {
     interface IDataRepository<T,T1> where T : class,new() where T1:struct
     {

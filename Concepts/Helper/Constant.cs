@@ -20,5 +20,12 @@ namespace DesignPatterns.Concepts
         GoldMember
     }
 
-    
+    public enum DataFormatType
+    {
+        JSON,
+        XML
+    }
+
+
+
 }

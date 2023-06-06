@@ -1,6 +1,5 @@
-﻿using System;
-
-namespace GenericRepositorySample
+﻿
+namespace GenericRepository
 {
     public class Posts
     {
