@@ -25,6 +25,8 @@ namespace DesignPatterns
             await CreateLoggerTaskUsingFactorPattern();
             await GenericRepositoryUsage();
             await ActionDelegateUsage();
+            BuilderPatternUsage();
+            await AdapterPatternUsage();
             Console.ReadLine();
         }
         private static async Task GenericRepository()
@@ -125,7 +127,7 @@ namespace DesignPatterns
 
         private static async Task<bool> FunctionDelegateExample()
         {
-            Console.WriteLine($"End of----{nameof(FunctionDelegateExample)}---Demo");
+            Console.WriteLine($"Start of----{nameof(FunctionDelegateExample)}---Demo");
             // Function Delegates
             Func<Person, string> getName = (person) => { return person.GetName(); };
 
@@ -186,8 +188,9 @@ namespace DesignPatterns
             }
         }
 
-        private static void BuilderTest()
+        private static void BuilderPatternUsage()
         {
+            Console.WriteLine($"Start----{nameof(BuilderPatternUsage)}---Demo");
             PersonDTO person = new PersonBuilder().Create()
                                                     .FirstName("FirstName")
                                                     .LastName("LastName")
@@ -195,10 +198,12 @@ namespace DesignPatterns
                                                     .StreetAddress("StreetAddress")                                                 
                                                     .Build();
             Console.WriteLine(person.ToString());
+            Console.WriteLine($"End of----{nameof(BuilderPatternUsage)}---Demo");
         }
 
-        private static async Task AdapterPatternDemo()
+        private static async Task AdapterPatternUsage()
         {
+            Console.WriteLine($"Start----{nameof(AdapterPatternUsage)}---Demo");
             IGetData getData = null;
             EntityFactor entityFactor = new EntityFactor();            
             getData = await entityFactor.GenerateFormatAdapter(DataFormatType.JSON);
@@ -207,6 +212,7 @@ namespace DesignPatterns
             getData = await entityFactor.GenerateFormatAdapter(DataFormatType.XML);
             var xmldata = await getData.GetData();
             Console.WriteLine($"{xmldata}");
+            Console.WriteLine($"End of----{nameof(AdapterPatternUsage)}---Demo");
         }
     }
 }
