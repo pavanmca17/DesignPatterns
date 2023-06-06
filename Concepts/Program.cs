@@ -29,13 +29,15 @@ namespace DesignPatterns
         }
         private static async Task GenericRepository()
         {
+            Console.WriteLine($"Starting----{nameof(GenericRepository)}---Demo");
             EmployeeRepository employeeRepository = new EmployeeRepository();
-            List<Employee> employees = await employeeRepository.GetData();  
-            
+            List<Employee> employees = await employeeRepository.GetData();           
+            Console.WriteLine($"End of----{nameof(GenericRepository)}---Demo");
         }
 
         static async Task StrategyPatternExample()
         {
+            Console.WriteLine($"Starting----{nameof(StrategyPatternExample)}---Demo");
             const float costPrice = 1200;
             float sellingPrice = 0;
             Discount _discount = null;
@@ -57,10 +59,14 @@ namespace DesignPatterns
             _discount = await _priceStrategy.GetDiscount();
             sellingPrice = costPrice - _discount.DiscountAmount;
             Console.WriteLine($"Cost Price, {costPrice} - Discount, {_discount.DiscountAmount} - Selling Price {sellingPrice}");
+
+            Console.WriteLine($"End of----{nameof(StrategyPatternExample)}---Demo");
         }
 
         private static async Task CreateLoggerTaskUsingFactorPattern()
         {
+            Console.WriteLine($"Starting----{nameof(CreateLoggerTaskUsingFactorPattern)}---Demo");
+
             Logger<Author> logger = LoggerFactory.CreateLogger(LoggerType.File);
             logger.Log();
             Func<Author> createAuthor = () => { return new Author() { ID = 1, Name = "First-Name" }; };          
@@ -68,20 +74,27 @@ namespace DesignPatterns
            
             logger = LoggerFactory.CreateLogger(LoggerType.Xml);
             logger.Log();
-            await logger.Log(createAuthor());       
+            await logger.Log(createAuthor());
+
+            Console.WriteLine($"End of ----{nameof(CreateLoggerTaskUsingFactorPattern)}---Demo");
 
         }
         private static async Task GenericRepositoryUsage()
         {
+            Console.WriteLine($"Starting----{nameof(GenericRepositoryUsage)}---Demo");
+
             PostsRepository PostsRepository = new PostsRepository();
             Posts Posts = await PostsRepository.GetData();           
             Result<int> result = await PostsRepository.SaveData(Posts);
             Console.WriteLine($"Return Value{result}");
+
+            Console.WriteLine($"Starting----{nameof(GenericRepositoryUsage)}---Demo");
         }
 
         private static async Task ActionDelegateUsage()
         {
-           // Action Delegates
+            Console.WriteLine($"Starting----{nameof(ActionDelegateUsage)}---Demo");
+            // Action Delegates
             Action<int> getint = (i) => { Console.WriteLine($"Action method Displaying Integer {i}"); };
 
             Action<string> getstring = (str) => { Console.WriteLine($"Action method Displaying String {str}"); };
@@ -106,11 +119,14 @@ namespace DesignPatterns
 
             await Task.Factory.StartNew(() => { displayPerson(createpersonobject(35, "FirstName", "LastName")); });
 
+            Console.WriteLine($"End of----{nameof(ActionDelegateUsage)}---Demo");
+
         }
 
         private static async Task<bool> FunctionDelegateExample()
         {
-           // Function Delegates
+            Console.WriteLine($"End of----{nameof(FunctionDelegateExample)}---Demo");
+            // Function Delegates
             Func<Person, string> getName = (person) => { return person.GetName(); };
 
             Func<string, bool> checkfilepath = System.IO.File.Exists;
@@ -142,7 +158,9 @@ namespace DesignPatterns
 
             Task<bool> booltask2 = Task.Factory.StartNew(() => checkfilepath("D://Testfile2.txt"));
 
-            Task<bool> completedTask = await Task.WhenAny(booltask1, booltask2);           
+            Task<bool> completedTask = await Task.WhenAny(booltask1, booltask2);
+
+            Console.WriteLine($"End of----{nameof(FunctionDelegateExample)}---Demo");
 
             return await completedTask; 
 
@@ -150,10 +168,14 @@ namespace DesignPatterns
 
         private static void DisplayPersonData()
         {
+            Console.WriteLine($"Start----{nameof(DisplayPersonData)}---Demo");
+
             DisplayPersonData displayPersonData = new DisplayPersonData();
             Func<int, string, string, Person> createpersonobject = (_Age, _FirstName, _LastName) => { return new Person() { Age = _Age, FirstName = _FirstName, LastName = _LastName }; };
             Action<Person> displayperson = (p) => { Console.WriteLine(p.ToString()); };
             displayPersonData.Display(displayperson, createpersonobject);
+
+            Console.WriteLine($"End of----{nameof(DisplayPersonData)}---Demo");
         }
 
         private static void GetAllSquares(List<int> values, Func<int, int> calcsquare)
