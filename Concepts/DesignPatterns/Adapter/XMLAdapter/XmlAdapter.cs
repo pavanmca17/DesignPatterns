@@ -3,16 +3,17 @@ using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Serialization;
 using System.Collections.Generic;
-using DesignPatterns.Adapter.Model;
+using DesignPatterns.Models;
+using Models;
 
-namespace DesignPatterns.Adapter
+namespace DesignPatterns
 {
     class XmlAdapter : IGetData
     {
         public async Task<string> GetData()
         {
             string xml = string.Empty;
-            ExternalDataService dataservice = new ExternalDataService();
+            ExternalService dataservice = new ExternalService();
             List<ExternalData> externalData = dataservice.GetData();            
             XmlDocument xmlDoc = new XmlDocument();
             XmlSerializer xmlSerializer = new XmlSerializer(externalData.GetType());

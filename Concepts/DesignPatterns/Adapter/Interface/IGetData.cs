@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace DesignPatterns.Adapter
+namespace DesignPatterns
 {
     public interface IGetData
     {

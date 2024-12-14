@@ -1,7 +1,8 @@
-﻿using System;
+﻿using Models;
+using System;
 
 
-namespace DesignPatterns.Concepts.Generics
+namespace DesignPatterns.Concepts
 {
     public class DisplayPersonData : IDisplayData<Person>
     {

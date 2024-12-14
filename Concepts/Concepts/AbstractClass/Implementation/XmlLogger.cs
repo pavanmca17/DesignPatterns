@@ -1,7 +1,8 @@
-﻿using System;
+﻿using DesignPatterns.Models;
+using LoggerService;
+using System;
 using System.Threading.Tasks;
-using DesignPatterns.Concepts.AbstractClass;
-using DesignPatterns.Concepts.Models;
+
 
 namespace DesignPatterns.Concepts
 {

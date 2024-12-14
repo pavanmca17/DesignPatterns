@@ -1,7 +1,7 @@
 ﻿using System;
 
 
-namespace DesignPatterns.Strategy.Models
+namespace Models
 {
     public class SilverMemeberDiscount : Discount
     {

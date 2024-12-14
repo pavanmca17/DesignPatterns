@@ -1,7 +1,7 @@
 ﻿using System;
 
 
-namespace DesignPatterns.Concepts.Generics
+namespace DesignPatterns.Concepts
 {
     public interface IDisplayData<T> where T : class
     {

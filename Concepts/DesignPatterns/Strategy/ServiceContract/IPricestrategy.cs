@@ -1,7 +1,7 @@
-﻿using DesignPatterns.Strategy.Models;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using Models;
 
-namespace DesignPatterns.DesignPatterns.Strategy
+namespace DesignPatterns
 {
     public interface IPriceStrategy
     {

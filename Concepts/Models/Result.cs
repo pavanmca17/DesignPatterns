@@ -1,4 +1,4 @@
-﻿namespace GenericRepository.Models
+﻿namespace Models
 {
     public class Result<T>
     {

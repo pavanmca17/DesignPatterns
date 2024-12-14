@@ -1,8 +1,10 @@
-﻿using DesignPatterns.Strategy.Models;
+﻿
+using Models;
 using System;
 using System.Threading.Tasks;
 
-namespace DesignPatterns.DesignPatterns.Strategy
+
+namespace DesignPatterns
 {
     public class SilverMemberPriceStrategy : IPriceStrategy
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace DesignPatterns.Concepts.AbstractClass
+namespace LoggerService
 {
     public abstract class Logger<T> where T : class, new()
     {

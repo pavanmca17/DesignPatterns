@@ -1,18 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using GenericRepository.Models;
+using DesignPatterns.GenericRepository.Repository.Contracts;
+using DesignPatterns.Models;
+using Models;
 
-namespace GenericRepository
+namespace DesignPatterns.GenericRepository
 {
-    public class PostsRepository : IDataRepository<Posts,int>
+    public class PostsRepository : IDataRepository<Posts, int>
     {
         private readonly static List<Posts> Postss = new List<Posts>();
 
         public async Task<Posts> GetData()
         {
             await Task.Delay(10000);
-            Func<Posts> createPosts = () => { return new Posts() {ID=1,Name="My Posts",Desc="My Desc",UrlLink="https://google.com" }; };
+            Func<Posts> createPosts = () => { return new Posts() { ID = 1, Name = "My Posts", Desc = "My Desc", UrlLink = "https://google.com" }; };
             return await Task.FromResult(createPosts());
         }
 

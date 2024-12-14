@@ -1,9 +1,9 @@
-﻿using System;
+﻿using DesignPatterns.Models;
+using System;
 using System.Threading.Tasks;
-using DesignPatterns.Concepts.AbstractClass;
-using DesignPatterns.Concepts.Models;
 
-namespace DesignPatterns.Concepts
+
+namespace LoggerService
 {
     public class DataBaseLogger : Logger<Author>
     {

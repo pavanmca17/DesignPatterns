@@ -1,8 +1,8 @@
-﻿namespace DesignPatterns.Builder.Models
+﻿namespace Models
 {
-    public class AddressDTO
+    public class Address
     {
-        public AddressDTO()
+        public Address()
         {
 
         }

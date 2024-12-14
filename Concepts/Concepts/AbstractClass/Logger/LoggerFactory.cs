@@ -1,9 +1,8 @@
-﻿
+﻿using DesignPatterns;
+using DesignPatterns.Concepts;
+using DesignPatterns.Models;
 
-using DesignPatterns.Concepts.AbstractClass;
-using DesignPatterns.Concepts.Models;
-
-namespace DesignPatterns.Concepts
+namespace LoggerService
 {
     public static class LoggerFactory
     {

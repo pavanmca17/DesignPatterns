@@ -1,4 +1,4 @@
-﻿namespace DesignPatterns.Adapter.Model
+﻿namespace Models
 {
     public class ExternalData
     {

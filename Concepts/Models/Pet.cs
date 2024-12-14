@@ -1,5 +1,5 @@
-﻿namespace DesignPatterns.LINQ
-{
+﻿namespace Models
+{ 
     public class Pet
     {
         public string Name { get; set; }

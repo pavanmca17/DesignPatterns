@@ -1,5 +1,5 @@
 ﻿
-namespace DesignPatterns.Concepts
+namespace DesignPatterns
 {
     public static class Constants
     {

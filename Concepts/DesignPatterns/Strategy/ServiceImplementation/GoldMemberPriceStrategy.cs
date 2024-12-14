@@ -1,9 +1,9 @@
-﻿using DesignPatterns.Concepts;
-using DesignPatterns.Strategy.Models;
+﻿
 using System;
 using System.Threading.Tasks;
+using Models;
 
-namespace DesignPatterns.DesignPatterns.Strategy
+namespace DesignPatterns
 {
     public class GoldMemberPriceStrategy : IPriceStrategy
     {

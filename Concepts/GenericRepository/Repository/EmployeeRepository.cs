@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Models;
 
 namespace GenericRepository
 {
@@ -8,10 +9,9 @@ namespace GenericRepository
     {
         static readonly List<Employee> employees = new List<Employee>();
 
-        public void SaveData()
+        public void SaveData(Employee employee)
         {
-            Employee employee = CreateEmployee(1, "Employee");
-            employees.Add(employee);          
+           employees.Add(employee);          
         }
 
         public async Task<List<Employee>> GetData()
@@ -19,6 +19,6 @@ namespace GenericRepository
             return await Task.FromResult(employees);
         }
         
-        private Func<int, string, Employee> CreateEmployee = (_ID,_Name) => { return new Employee() { ID=_ID,Name=_Name }; };
+        
     }
 }

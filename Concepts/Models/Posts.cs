@@ -1,5 +1,4 @@
-﻿
-namespace GenericRepository
+﻿namespace Models
 {
     public class Posts
     {
@@ -13,6 +12,6 @@ namespace GenericRepository
             return $"ID is {ID} and Name is {Name} and Desc is {Desc}";
         }
 
-               
+
     }
 }

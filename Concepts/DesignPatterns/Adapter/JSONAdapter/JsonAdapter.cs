@@ -1,16 +1,17 @@
-﻿using DesignPatterns.Adapter.Model;
+﻿using DesignPatterns.Models;
+using Models;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace DesignPatterns.Adapter
+namespace DesignPatterns
 {
     class JsonAdapter : IGetData
     {
         public  async Task<string> GetData()
         {
-            ExternalDataService dataservice = new ExternalDataService();
-            List<ExternalData> sampleDtos = dataservice.GetData();
+            ExternalService externalService = new ExternalService();
+            List<ExternalData> sampleDtos = externalService.GetData();
             return await Task.FromResult<string>(JsonConvert.SerializeObject(sampleDtos));            
         }
 

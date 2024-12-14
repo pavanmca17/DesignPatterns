@@ -1,9 +1,9 @@
 ﻿using System;
 
 
-namespace GenericRepository
+namespace Models
 {
-    public class Employee 
+    public class Employee
     {
         public int ID { get; set; }
         public string Name { get; set; }
@@ -13,6 +13,6 @@ namespace GenericRepository
             return "Logging using Generics ID:" + ID + "Name is" + Name;
         }
 
-       
+
     }
 }

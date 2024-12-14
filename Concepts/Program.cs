@@ -2,17 +2,12 @@
 using GenericRepository;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using DesignPatterns.GenericRepository;
+using DesignPatterns.Models;
+using Models;
 using DesignPatterns.Concepts;
-using DesignPatterns.Builder;
-using DesignPatterns.Adapter;
-using DesignPatterns.Concepts.AbstractClass;
-using DesignPatterns.DesignPatterns.Strategy;
-using DesignPatterns.DesignPatterns.EntityFactory;
-using DesignPatterns.Concepts.Generics;
-using DesignPatterns.Builder.Models;
-using DesignPatterns.Strategy.Models;
-using DesignPatterns.Concepts.Models;
-using GenericRepository.Models;
+using LoggerService;
+
 
 namespace DesignPatterns
 {
@@ -21,53 +16,46 @@ namespace DesignPatterns
         public static async Task Main(string[] args)
         {
             await GenericRepository();
-            await StrategyPatternExample();
-            await CreateLoggerTaskUsingFactorPattern();
-            await GenericRepositoryUsage();
-            await ActionDelegateUsage();
+            await StrategyPattern();
+            await CreateLogger();
+            await GenericRepository();           
             BuilderPatternUsage();
-            await AdapterPatternUsage();
+            await AdapterPattern();
             Console.ReadLine();
         }
-        private static async Task GenericRepository()
+       
+        static async Task StrategyPattern()
         {
-            Console.WriteLine($"Starting----{nameof(GenericRepository)}---Demo");
-            EmployeeRepository employeeRepository = new EmployeeRepository();
-            List<Employee> employees = await employeeRepository.GetData();           
-            Console.WriteLine($"End of----{nameof(GenericRepository)}---Demo");
-        }
-
-        static async Task StrategyPatternExample()
-        {
-            Console.WriteLine($"Starting----{nameof(StrategyPatternExample)}---Demo");
+            Console.WriteLine($"Starting----{nameof(StrategyPattern)}---Demo");
+            
             const float costPrice = 1200;
             float sellingPrice = 0;
             Discount _discount = null;
 
-            IPriceStrategy _priceStrategy = null;     
-            IEntityFactory _entityFactory = new EntityFactor();
+            IPriceStrategy _priceStrategy = new NullPriceStrategy();
 
-            _priceStrategy = await _entityFactory.GeneratePriceStrategyEntity(PriceStrategyType.Null);
+           
             _discount = await _priceStrategy.GetDiscount();
             sellingPrice = costPrice - _discount.DiscountAmount;
             Console.WriteLine($"Cost Price, {costPrice} - Discount, {_discount.DiscountAmount} - Selling Price {sellingPrice}");
 
-            _priceStrategy = await _entityFactory.GeneratePriceStrategyEntity(PriceStrategyType.SilverMember);
+
+            _priceStrategy = new SilverMemberPriceStrategy();
             _discount = await _priceStrategy.GetDiscount();
             sellingPrice = costPrice - _discount.DiscountAmount;
             Console.WriteLine($"Cost Price, {costPrice} - Discount, {_discount.DiscountAmount} - Selling Price {sellingPrice}");
 
-            _priceStrategy = await _entityFactory.GeneratePriceStrategyEntity(PriceStrategyType.GoldMember);
+            _priceStrategy = new GoldMemberPriceStrategy();
             _discount = await _priceStrategy.GetDiscount();
             sellingPrice = costPrice - _discount.DiscountAmount;
             Console.WriteLine($"Cost Price, {costPrice} - Discount, {_discount.DiscountAmount} - Selling Price {sellingPrice}");
 
-            Console.WriteLine($"End of----{nameof(StrategyPatternExample)}---Demo");
+            Console.WriteLine($"End of----{nameof(StrategyPattern)}---Demo");
         }
 
-        private static async Task CreateLoggerTaskUsingFactorPattern()
+        private static async Task CreateLogger()
         {
-            Console.WriteLine($"Starting----{nameof(CreateLoggerTaskUsingFactorPattern)}---Demo");
+            Console.WriteLine($"Starting----{nameof(CreateLogger)}---Demo");
 
             Logger<Author> logger = LoggerFactory.CreateLogger(LoggerType.File);
             logger.Log();
@@ -78,24 +66,30 @@ namespace DesignPatterns
             logger.Log();
             await logger.Log(createAuthor());
 
-            Console.WriteLine($"End of ----{nameof(CreateLoggerTaskUsingFactorPattern)}---Demo");
+            Console.WriteLine($"End of ----{nameof(CreateLogger)}---Demo");
 
         }
-        private static async Task GenericRepositoryUsage()
+        private static async Task GenericRepository()
         {
-            Console.WriteLine($"Starting----{nameof(GenericRepositoryUsage)}---Demo");
+            Console.WriteLine($"Starting----{nameof(GenericRepository)}---Demo");
+
+            IGenericRepository<Employee> employeeRepository = new EmployeeRepository();
+            Func<int, string, Employee> createEmployee = (_ID, _Name) => { return new Employee() { ID = _ID, Name = _Name }; };
+            employeeRepository.SaveData(createEmployee(1, "Test"));
+            List<Employee> employees = await employeeRepository.GetData();
+
 
             PostsRepository PostsRepository = new PostsRepository();
             Posts Posts = await PostsRepository.GetData();           
             Result<int> result = await PostsRepository.SaveData(Posts);
             Console.WriteLine($"Return Value{result}");
 
-            Console.WriteLine($"Starting----{nameof(GenericRepositoryUsage)}---Demo");
+            Console.WriteLine($"Starting----{nameof(GenericRepository)}---Demo");
         }
 
-        private static async Task ActionDelegateUsage()
+        private static async Task ActionDelegate()
         {
-            Console.WriteLine($"Starting----{nameof(ActionDelegateUsage)}---Demo");
+            Console.WriteLine($"Starting----{nameof(ActionDelegate)}---Demo");
             // Action Delegates
             Action<int> getint = (i) => { Console.WriteLine($"Action method Displaying Integer {i}"); };
 
@@ -103,12 +97,14 @@ namespace DesignPatterns
 
             Action<Person> displayPerson = (person) =>
             {
-                person.GetPersonDetails();
+                person.ToString();
             };
 
             //Use a Function to Create and Return a Object of Person Type
             Func<int, string, string, Person> createpersonobject = (_Age, _FirstName, _LastName) => {
-                   return new Person() { Age = _Age, FirstName = _FirstName, LastName = _LastName };
+                   
+                return new Person() { Age = _Age, FirstName = _FirstName, LastName = _LastName };
+
             };
 
            // Passing Actions to Tasks
@@ -116,24 +112,26 @@ namespace DesignPatterns
 
             await Task.Factory.StartNew(() => {  getstring("Hello Test");
                                               }).ContinueWith(t => { 
+                                                  
                                                   Console.WriteLine("Starting After Completion of Hello Test");
                                                  });
 
             await Task.Factory.StartNew(() => { displayPerson(createpersonobject(35, "FirstName", "LastName")); });
 
-            Console.WriteLine($"End of----{nameof(ActionDelegateUsage)}---Demo");
+            Console.WriteLine($"End of----{nameof(ActionDelegate)}---Demo");
 
         }
 
-        private static async Task<bool> FunctionDelegateExample()
+        private static async Task<bool> FunctionDelegate()
         {
-            Console.WriteLine($"Start of----{nameof(FunctionDelegateExample)}---Demo");
+            Console.WriteLine($"Start of----{nameof(FunctionDelegate)}---Demo");
+
             // Function Delegates
-            Func<Person, string> getName = (person) => { return person.GetName(); };
+            Func<Person, string> getName = (person) => { return person.FirstName + " " + person.LastName; };
 
             Func<string, bool> checkfilepath = System.IO.File.Exists;
 
-          //  Task < String > using Functions
+          
             Task<string> dataTask = Task.Factory.StartNew(() => { return "data"; });
             var data = await dataTask;
             Console.WriteLine(data);
@@ -162,7 +160,7 @@ namespace DesignPatterns
 
             Task<bool> completedTask = await Task.WhenAny(booltask1, booltask2);
 
-            Console.WriteLine($"End of----{nameof(FunctionDelegateExample)}---Demo");
+            Console.WriteLine($"End of----{nameof(FunctionDelegate)}---Demo");
 
             return await completedTask; 
 
@@ -191,7 +189,7 @@ namespace DesignPatterns
         private static void BuilderPatternUsage()
         {
             Console.WriteLine($"Start----{nameof(BuilderPatternUsage)}---Demo");
-            PersonDTO person = new PersonBuilder().Create()
+            Person person = new PersonBuilder().Create()
                                                     .FirstName("FirstName")
                                                     .LastName("LastName")
                                                     .Age(40)
@@ -201,18 +199,20 @@ namespace DesignPatterns
             Console.WriteLine($"End of----{nameof(BuilderPatternUsage)}---Demo");
         }
 
-        private static async Task AdapterPatternUsage()
+        private static async Task AdapterPattern()
         {
-            Console.WriteLine($"Start----{nameof(AdapterPatternUsage)}---Demo");
+            Console.WriteLine($"Start----{nameof(AdapterPattern)}---Demo");
             IGetData getData = null;
-            EntityFactor entityFactor = new EntityFactor();            
-            getData = await entityFactor.GenerateFormatAdapter(DataFormatType.JSON);
+
+            getData = new JsonAdapter();
             var jsonData = await getData.GetData();
             Console.WriteLine($"{jsonData}");
-            getData = await entityFactor.GenerateFormatAdapter(DataFormatType.XML);
+
+            getData = new XmlAdapter();
             var xmldata = await getData.GetData();
             Console.WriteLine($"{xmldata}");
-            Console.WriteLine($"End of----{nameof(AdapterPatternUsage)}---Demo");
+
+            Console.WriteLine($"End of----{nameof(AdapterPattern)}---Demo");
         }
     }
 }

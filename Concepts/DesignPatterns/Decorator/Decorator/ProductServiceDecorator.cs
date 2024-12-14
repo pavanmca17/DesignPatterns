@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DesignPatterns.DesignPatterns.Decorator.Model;
-using DesignPatterns.DesignPatterns.Decorator.ServiceContracts;
+﻿
 
-namespace DesignPatterns.DesignPatterns.Decorator.Decorator
+
+using Models;
+
+namespace DesignPatterns
 {
     class ProductServiceDecorator : IProductService
     {

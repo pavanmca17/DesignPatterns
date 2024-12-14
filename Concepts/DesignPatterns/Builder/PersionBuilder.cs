@@ -1,14 +1,15 @@
-﻿using System;
-using DesignPatterns.Builder.Models;
+﻿
 
-namespace DesignPatterns.Builder
+using Models;
+
+namespace DesignPatterns
 {
     public class PersonBuilder
     {
-        private PersonDTO person;
+        private Person person;
         public PersonBuilder Create()
         {
-            person = new PersonDTO();
+            person = new Person();
             return this;
         }
         public PersonBuilder FirstName(string firstName)
@@ -32,7 +33,7 @@ namespace DesignPatterns.Builder
             person.Address.StreetAddress = StreetAddress;
             return this;
         }
-        public PersonDTO Build()
+        public Person Build()
         {
             return person;
         }

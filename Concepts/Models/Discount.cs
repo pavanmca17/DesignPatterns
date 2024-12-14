@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DesignPatterns.Strategy.Models
+namespace Models
 {
     public class Discount
     {
@@ -8,9 +8,9 @@ namespace DesignPatterns.Strategy.Models
 
         public DateTime DiscountAppliedOn { get; set; }
 
-        public virtual float DiscountAmount { get; set; } 
+        public virtual float DiscountAmount { get; set; }
 
-        public Discount(String _DiscountApprovedBy,DateTime _DiscountAppliedOn)
+        public Discount(string _DiscountApprovedBy, DateTime _DiscountAppliedOn)
         {
             DiscountAmount = 0;
             DiscountApprovedBy = _DiscountApprovedBy;
