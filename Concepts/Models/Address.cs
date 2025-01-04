@@ -7,7 +7,7 @@
 
         }
 
-        public string StreetAddress;
-        public string City;
+        public string StreetAddress { get; set; }
+        public string City { get; set; }
     }
 }

@@ -3,9 +3,9 @@
 
 namespace DesignPatterns.Concepts
 {
-    public interface IDisplayData<T> where T : class
+    public interface IDisplayData<T> where T : class, new()
     {
-       void Display(Action<T> display, Func<int, string, string, T> createT);
+       void Display(Action<T> display, Func<string, string,int, T> create);
        
     }
 }

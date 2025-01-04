@@ -6,9 +6,9 @@ namespace DesignPatterns.Concepts
 {
     public class DisplayPersonData : IDisplayData<Person>
     {
-        public void Display(Action<Person> display, Func<int, string, string, Person> createpersonobject)
+        public void Display(Action<Person> display, Func<string, string, int, Person> create)
         {
-            display(createpersonobject(35, "FirstName", "LastName"));
+            display(create("FirstName","LastName",25));
         }
 
     }

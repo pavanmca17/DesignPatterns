@@ -17,8 +17,7 @@ namespace DesignPatterns
         {
             await GenericRepository();
             await StrategyPattern();
-            await CreateLogger();
-            await GenericRepository();           
+            await CreateLogger();                    
             BuilderPatternUsage();
             await AdapterPattern();
             Console.ReadLine();
@@ -26,8 +25,7 @@ namespace DesignPatterns
        
         static async Task StrategyPattern()
         {
-            Console.WriteLine($"Starting----{nameof(StrategyPattern)}---Demo");
-            
+                       
             const float costPrice = 1200;
             float sellingPrice = 0;
             Discount _discount = null;
@@ -50,12 +48,11 @@ namespace DesignPatterns
             sellingPrice = costPrice - _discount.DiscountAmount;
             Console.WriteLine($"Cost Price, {costPrice} - Discount, {_discount.DiscountAmount} - Selling Price {sellingPrice}");
 
-            Console.WriteLine($"End of----{nameof(StrategyPattern)}---Demo");
+           
         }
 
         private static async Task CreateLogger()
-        {
-            Console.WriteLine($"Starting----{nameof(CreateLogger)}---Demo");
+        {           
 
             Logger<Author> logger = LoggerFactory.CreateLogger(LoggerType.File);
             logger.Log();
@@ -65,14 +62,12 @@ namespace DesignPatterns
             logger = LoggerFactory.CreateLogger(LoggerType.Xml);
             logger.Log();
             await logger.Log(createAuthor());
-
-            Console.WriteLine($"End of ----{nameof(CreateLogger)}---Demo");
+                       
 
         }
         private static async Task GenericRepository()
         {
-            Console.WriteLine($"Starting----{nameof(GenericRepository)}---Demo");
-
+           
             IGenericRepository<Employee> employeeRepository = new EmployeeRepository();
             Func<int, string, Employee> createEmployee = (_ID, _Name) => { return new Employee() { ID = _ID, Name = _Name }; };
             employeeRepository.SaveData(createEmployee(1, "Test"));
@@ -83,13 +78,13 @@ namespace DesignPatterns
             Posts Posts = await PostsRepository.GetData();           
             Result<int> result = await PostsRepository.SaveData(Posts);
             Console.WriteLine($"Return Value{result}");
-
-            Console.WriteLine($"Starting----{nameof(GenericRepository)}---Demo");
+           
         }
 
         private static async Task ActionDelegate()
         {
-            Console.WriteLine($"Starting----{nameof(ActionDelegate)}---Demo");
+          
+           
             // Action Delegates
             Action<int> getint = (i) => { Console.WriteLine($"Action method Displaying Integer {i}"); };
 
@@ -97,18 +92,19 @@ namespace DesignPatterns
 
             Action<Person> displayPerson = (person) =>
             {
-                person.ToString();
+                Console.WriteLine(person.ToString());
             };
 
             //Use a Function to Create and Return a Object of Person Type
-            Func<int, string, string, Person> createpersonobject = (_Age, _FirstName, _LastName) => {
+            Func<int, string, string, Person> createpersonobject = (_age, _firstName, _lastName) => {
                    
-                return new Person() { Age = _Age, FirstName = _FirstName, LastName = _LastName };
+                return new Person() { Age = _age, FirstName = _firstName, LastName = _lastName };
 
             };
 
            // Passing Actions to Tasks
             await Task.Factory.StartNew(() => { getint(10); });
+
 
             await Task.Factory.StartNew(() => {  getstring("Hello Test");
                                               }).ContinueWith(t => { 
@@ -123,22 +119,20 @@ namespace DesignPatterns
         }
 
         private static async Task<bool> FunctionDelegate()
-        {
-            Console.WriteLine($"Start of----{nameof(FunctionDelegate)}---Demo");
+        {            
 
             // Function Delegates
             Func<Person, string> getName = (person) => { return person.FirstName + " " + person.LastName; };
 
             Func<string, bool> checkfilepath = System.IO.File.Exists;
-
-          
+                      
             Task<string> dataTask = Task.Factory.StartNew(() => { return "data"; });
             var data = await dataTask;
             Console.WriteLine(data);
 
            // Use a Function to Create and Return a Object of Person Type
-            Func<int, string, string, Person> createperson = (_Age, _FirstName, _LastName) => { 
-                 return new Person() { Age = _Age, FirstName = _FirstName, LastName = _LastName }; 
+            Func<int, string, string, Person> createperson = (_age, _firstName, _lastName) => { 
+                 return new Person() { Age = _age, FirstName = _firstName, LastName = _lastName }; 
             };
 
             Func<Person> getperson = () => { return new Person() {  }; };
@@ -151,16 +145,11 @@ namespace DesignPatterns
             var name = await nameTask;
             Console.WriteLine(name);
 
-            var task1 = new Task(() => { Console.WriteLine("StartTasksAfterCreation"); });
-            task1.Start();
-
             Task<bool> booltask1 = Task.Factory.StartNew(() => checkfilepath("D://Testfile1.txt"));
 
             Task<bool> booltask2 = Task.Factory.StartNew(() => checkfilepath("D://Testfile2.txt"));
 
             Task<bool> completedTask = await Task.WhenAny(booltask1, booltask2);
-
-            Console.WriteLine($"End of----{nameof(FunctionDelegate)}---Demo");
 
             return await completedTask; 
 
@@ -168,14 +157,18 @@ namespace DesignPatterns
 
         private static void DisplayPersonData()
         {
-            Console.WriteLine($"Start----{nameof(DisplayPersonData)}---Demo");
-
             DisplayPersonData displayPersonData = new DisplayPersonData();
-            Func<int, string, string, Person> createpersonobject = (_Age, _FirstName, _LastName) => { return new Person() { Age = _Age, FirstName = _FirstName, LastName = _LastName }; };
-            Action<Person> displayperson = (p) => { Console.WriteLine(p.ToString()); };
-            displayPersonData.Display(displayperson, createpersonobject);
 
-            Console.WriteLine($"End of----{nameof(DisplayPersonData)}---Demo");
+            Func< string, string, int, Person> createPerson = (_firstName, _lastName, _age) => 
+            { 
+                return new Person() { FirstName = _firstName, LastName = _lastName, Age = _age, }; 
+                
+            };
+
+            Action<Person> displayperson = (p) => { Console.WriteLine(p.ToString()); };
+
+            displayPersonData.Display(displayperson, createPerson);
+                        
         }
 
         private static void GetAllSquares(List<int> values, Func<int, int> calcsquare)
